@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 from .models import db, Todo
 
 api = Blueprint("api", __name__)
@@ -6,9 +6,7 @@ api = Blueprint("api", __name__)
 
 @api.route("/")
 def home():
-    return jsonify({
-        "message": "Todo API is running"
-    })
+    return render_template("index.html")
 
 
 @api.route("/health")
