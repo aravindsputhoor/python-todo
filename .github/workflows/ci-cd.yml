@@ -12,9 +12,11 @@ jobs:
 
   test:
     name: Code Quality and Tests
+
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -35,6 +37,7 @@ jobs:
         run: |
           pytest
 
+
   docker:
     name: Build and Push Docker Image
 
@@ -45,6 +48,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
