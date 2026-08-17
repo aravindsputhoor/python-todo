@@ -1,47 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Todo Application</title>
-
-    <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='css/style.css') }}"
-    >
+    <title>Taskflow — Modern Todo</title>
+    <!-- Google Font & Phosphor Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-
 <body>
 
-<div class="container">
+<main class="app-card">
+    <header class="app-header">
+        <div>
+            <h1>Tasks</h1>
+            <p id="date-label">Today's Priorities</p>
+        </div>
+        <span class="task-badge" id="task-count">0 items</span>
+    </header>
 
-    <h1>My Todo List</h1>
-
-    <form id="todo-form">
-
-        <input
-            type="text"
-            id="todo-title"
-            placeholder="Enter a todo..."
+    <form id="todo-form" class="todo-input-group">
+        <input 
+            type="text" 
+            id="todo-title" 
+            placeholder="Add a new task..." 
+            autocomplete="off"
             required
         >
-
-        <button type="submit">
-            Add Todo
+        <button type="submit" aria-label="Add task">
+            <i class="ph ph-plus"></i>
         </button>
-
     </form>
 
-    <ul id="todo-list"></ul>
+    <div class="filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="active">Active</button>
+        <button class="filter-btn" data-filter="completed">Completed</button>
+    </div>
 
-</div>
+    <ul id="todo-list" class="todo-list">
+        <!-- Rendered by JS -->
+    </ul>
 
-<script
-    src="{{ url_for('static', filename='js/app.js') }}"
-></script>
+    <div id="empty-state" class="empty-state hidden">
+        <i class="ph ph-check-circle"></i>
+        <p>All caught up!</p>
+    </div>
+</main>
 
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
-
 </html>

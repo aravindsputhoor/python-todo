@@ -105,3 +105,12 @@ def delete_todo(todo_id):
     return jsonify({
         "message": "Todo deleted successfully"
     })
+
+@api.route('/todos/<int:todo_id>', methods=['PATCH'])
+def update_todo(todo_id):
+    data = request.get_json()
+    todo = Todo.query.get_or_404(todo_id)
+    if 'completed' in data:
+        todo.completed = data['completed']
+    db.session.commit()
+    return jsonify({"success": True})
