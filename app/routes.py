@@ -67,29 +67,6 @@ def create_todo():
 
     return jsonify(todo.to_dict()), 201
 
-
-@api.route("/todos/<int:todo_id>", methods=["PUT"])
-def update_todo(todo_id):
-    todo = db.session.get(Todo, todo_id)
-
-    if not todo:
-        return jsonify({
-            "error": "Todo not found"
-        }), 404
-
-    data = request.get_json()
-
-    if "title" in data:
-        todo.title = data["title"]
-
-    if "completed" in data:
-        todo.completed = data["completed"]
-
-    db.session.commit()
-
-    return jsonify(todo.to_dict())
-
-
 @api.route("/todos/<int:todo_id>", methods=["DELETE"])
 def delete_todo(todo_id):
     todo = db.session.get(Todo, todo_id)
@@ -106,10 +83,12 @@ def delete_todo(todo_id):
         "message": "Todo deleted successfully"
     })
 
-@api.route('/todos/<int:todo_id>', methods=['PATCH'])
-def update_todo(todo_id):
+@api.route('/todos/<int:id>', methods=['PUT', 'PATCH'])
+def update_todo(id):
     data = request.get_json()
-    todo = Todo.query.get_or_404(todo_id)
+    todo = Todo.query.get_or_404(id)
+    if 'title' in data:
+        todo.title = data['title']
     if 'completed' in data:
         todo.completed = data['completed']
     db.session.commit()
